@@ -39,6 +39,7 @@ int main()
 		Array[i] = static_cast<int>(x);
 		cout << static_cast<int>(x) << endl;
 	}
+
 	cout << "Size " << sizeof(Array);
 	_getch();
 	return 0;
