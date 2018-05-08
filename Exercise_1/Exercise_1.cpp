@@ -9,6 +9,7 @@
 #include <regex>
 #include <sstream>
 
+
 using namespace std;
 
 string ReadFile(string path)
@@ -25,21 +26,31 @@ string Filter(string text)
 	return regex_replace(text, range, "$2"); 
 }
 
+int conversionInt8_tTOint(int8_t data)
+{
+	if (atoi(to_string(data).c_str()) < 0)
+	{
+		return 256 + atoi(to_string(data).c_str());
+	}
+	else
+		return atoi(to_string(data).c_str());
+}
+
 int main()
 {
 	string content = Filter(ReadFile("test.txt"));
 	int8_t *Array = new int8_t[content.length()];
-	cout << content.length()/2 << endl;
 
 	for (int i = 0; i < content.length(); i+=2)
 	{
 		stringstream ss;
 		int x;
-		ss << hex << content[i] << content[i+1];
+		ss << hex << content[i] << content[i + 1];
 		ss >> x;
-		Array[i] = static_cast<int>(x);
+		Array[i] = x;
 	}
 
+	_getch();
 	return 0;
 }
 
