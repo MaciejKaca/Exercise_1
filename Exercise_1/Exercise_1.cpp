@@ -10,8 +10,7 @@
 #include <sstream>
 #include <stdio.h>
 #include <ctype.h>
-#include <bitset>
-
+#include <vector>
 
 using namespace std;
 
@@ -43,7 +42,7 @@ string Filter(string text)
 	return regex_replace(text, range, ""); 
 }
 
-int conversionInt8_tTOint(int8_t data)
+int Int8_t2Int(int8_t data)
 {
 	if (atoi(to_string(data).c_str()) < 0)
 	{
@@ -139,34 +138,33 @@ int main()
 		ArrayLenght++;
 	}
 
-	int EvenCount = 0, OddCount = 0;
-	int8_t *EvenArray = new int8_t[ceil(float(ArrayLenght) / 2)];
-	int8_t *OddArray = new int8_t[ceil(float(ArrayLenght) / 2)];
+	vector<int> Even, Odd;
 
 	for (int i = 0; i < ArrayLenght; i++)
 	{
-		if (conversionInt8_tTOint(Array[i]) % 2 == 0)
+		if ( BitCount(Dec2Bin(Int8_t2Int(Array[i]))) % 2 == 0)
 		{
-			EvenArray[EvenCount] = Array[i];
-			EvenCount++;
+			Even.push_back(Int8_t2Int(Array[i]));
 		}
 		else
 		{
-			OddArray[OddCount] = Array[i];
-			OddCount++;
+			Odd.push_back(Int8_t2Int( Array[i]));
 		}
 	}
 
+	sort(Even.begin(), Even.end());
+	//TODO Descending order for ODD
+
 	stringstream EvenResult, OddResult;
-	for (int i = 0; i < EvenCount; i++)
+	for (int i = 0; i < Even.size(); i++)
 	{
-		EvenResult  << hex << conversionInt8_tTOint(EvenArray[i]);
+		EvenResult << hex << Even.at(i);
 		EvenResult << " ";
 
 	}
-	for (int i = 0; i < OddCount; i++)
+	for (int i = 0; i < Odd.size(); i++)
 	{
-		OddResult << hex << conversionInt8_tTOint(OddArray[i]);
+		OddResult << hex << Odd.at(i);
 		OddResult << " ";
 	}
 
@@ -181,7 +179,5 @@ int main()
 	_getch();
 
 	delete[] Array;
-	delete[] EvenArray;
-	delete[] OddArray;
 	return 0;
 }
