@@ -112,6 +112,12 @@ int BitCount(string number)
 	return count;
 }
 
+struct greater
+{
+	template<class T>
+	bool operator()(T const &a, T const &b) const { return a > b; }
+};
+
 int main()
 {
 	string FileName;
@@ -153,7 +159,7 @@ int main()
 	}
 
 	sort(Even.begin(), Even.end());
-	//TODO Descending order for ODD
+	sort(Odd.begin(), Odd.end(), greater());
 
 	stringstream EvenResult, OddResult;
 	for (int i = 0; i < Even.size(); i++)
