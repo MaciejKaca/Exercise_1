@@ -100,6 +100,19 @@ int Bin2Dec(string number)
 	return decimalNumber;
 }
 
+int BitCount(string number)
+{
+	int count = 0;
+	for (int i = 0; i < number.size(); i++)
+	{
+		if (number[i] == '1')
+		{
+			count++;
+		}
+	}
+	return count;
+}
+
 int main()
 {
 	string FileName;
